@@ -1,15 +1,6 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Injectable,
-  Param,
-  Post,
-  Res,
-} from '@nestjs/common';
-import { UserService } from './user.service';
+import { Body, Controller, Get, Injectable, Param, Post } from '@nestjs/common';
 import UserDTO from './dto/user.dto';
+import { UserService } from './user.service';
 
 @Controller('users')
 @Injectable()
@@ -21,18 +12,30 @@ export class UserController {
     @Body()
     data: UserDTO,
   ) {
-    return this.userService.createUser(data);
+    try {
+      return this.userService.createUser(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
   @Get()
   async getUser(
     @Body()
     data: UserDTO,
   ) {
-    return this.userService.findAll(data);
+    try {
+      return this.userService.findAll(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const data = this.userService.findOne(id);
-    return data;
+  @Get(':email')
+  async findOne(@Param('email') email: string) {
+    try {
+      const data = this.userService.findOne(email);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

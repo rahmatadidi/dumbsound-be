@@ -17,6 +17,7 @@ model User {
   password        String
   phone           Int
   attacheTransfer String
+  avatar          String
 
   playlist       Playlist[]    @relation("UserPlaylist")
   transactions   Transactions? @relation(fields: [transactionsId], references: [id])

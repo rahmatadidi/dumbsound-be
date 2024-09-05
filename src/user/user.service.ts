@@ -6,19 +6,31 @@ import UserDTO from './dto/user.dto';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   async createUser(data: UserDTO) {
-    const user = await this.prisma.user.create({
-      data,
-    });
-    return user;
+    try {
+      const user = await this.prisma.user.create({
+        data,
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
-    return user;
+  async findOne(email: string) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { email },
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async findAll(data: UserDTO) {
-    const user = await this.prisma.user.findMany({});
-    return user;
+    try {
+      const user = await this.prisma.user.findMany({});
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
